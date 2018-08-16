@@ -9,12 +9,14 @@ const { promisify } = require('bluebird');
 const db = require('../db');
 
 const queries = require('../api/graphql/queries')();
+const mutations = require('../api/graphql/mutations')();
 
 const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
 
 const Schema = new GraphQLSchema({
   query: queries,
+  mutation: mutations,
 });
 
 app.get('/ping', (req, res) => {

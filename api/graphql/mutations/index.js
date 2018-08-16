@@ -1,46 +1,48 @@
-// @flow
-import {
+const {
   GraphQLList,
   GraphQLObjectType,
   GraphQLNonNull,
-  GraphQLString
-} from "graphql";
+  GraphQLString,
+} = require('graphql');
 
-import getStorage from "../../storage";
-import getModels from "../models";
+const getModels = require('../models');
+const db = require('../../../db');
 
-import type { IProject } from "../../storage";
-
-export default function() {
+const mutations = function() {
   const models = getModels();
 
   return new GraphQLObjectType({
-    name: "ProjectBuilderMutations",
-    description: "The mutations available for the project builder",
+    name: 'ProjectBuilderMutations',
+    description: 'The mutations available for the project builder',
     fields: () => ({
       createProject: {
-        description: "Create a project & its tasks",
+        description: 'Create a project & its tasks',
         type: models.Project,
         args: {
-          name: {
-            description: "The name of the project to create",
-            type: new GraphQLNonNull(GraphQLString)
+          collectionId: {
+            description: 'The description of the project to create',
+            type: new GraphQLNonNull(GraphQLString),
           },
           description: {
-            description: "The description of the project to create",
-            type: new GraphQLNonNull(GraphQLString)
+            description: 'The description of the project to create',
+            type: new GraphQLNonNull(GraphQLString),
           },
-          collectionId: {
-            description: "The description of the project to create",
-            type: new GraphQLNonNull(GraphQLString)
+          name: {
+            description: 'The name of the project to create',
+            type: new GraphQLNonNull(GraphQLString),
           },
-          tasks: {
-            description: "Tasks that belong to the project",
-            type: new GraphQLList(models.TaskInput)
-          }
         },
-        resolve: (_, args: IProject) => getStorage().createProject(args)
-      }
-    })
+        resolve(parent, { collectionId, description, name, tasks }) {
+          return db.get(
+            `
+          INSERT INTO Project('collectionId', 'description', 'name') VALUES ($collectionId, $description, $name)
+          `,
+            { $collectionId: collectionId, $description: description, $name: name },
+          );
+        },
+      },
+    }),
   });
-}
+};
+
+module.exports = mutations;

@@ -1,17 +1,18 @@
-// @flow
-import { GraphQLEnumType } from "graphql";
+const { GraphQLEnumType } = require('graphql');
 
-export default new GraphQLEnumType({
-  name: "TaskType",
-  description: "Supported task types",
+const TaskType = new GraphQLEnumType({
+  name: 'TaskType',
+  description: 'Supported task types',
   values: {
     CONTENT: {
-      value: "content",
-      description: "A task for review & approval of content"
+      value: 'content',
+      description: 'A task for review & approval of content',
     },
     TODO: {
-      value: "todo",
-      description: "A non-content related task that needs to be completed"
-    }
-  }
+      value: 'todo',
+      description: 'A non-content related task that needs to be completed',
+    },
+  },
 });
+
+module.exports = TaskType;

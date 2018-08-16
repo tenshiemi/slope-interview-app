@@ -1,7 +1,7 @@
 const Collection = require('./Collection');
 const Project = require('./Project');
 const Task = require('./Task');
-// const getTaskInput = require('./TaskInput');
+const TaskInput = require('./TaskInput');
 
 const models = {};
 function getModels() {
@@ -9,7 +9,7 @@ function getModels() {
     models.Collection = Collection;
     models.Project = Project;
     models.Task = Task;
-    // models.TaskInput = getTaskInput();
+    models.TaskInput = TaskInput;
   }
 
   return models;
