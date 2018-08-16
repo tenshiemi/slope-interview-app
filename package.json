@@ -1,0 +1,22 @@
+{
+  "name": "slope-interview-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "express-graphql": "^0.6.12",
+    "graphql": "^0.13.2",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-scripts": "1.1.4",
+    "sqlite3": "^4.0.2"
+  },
+  "scripts": {
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "proxy": "http://localhost:8080",
+    "api": "node ./server/server.js",
+    "start": "react-scripts start",
+    "test": "react-scripts test --env=jsdom"
+  }
+}
