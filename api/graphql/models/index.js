@@ -14,4 +14,5 @@ function getModels() {
 
   return models;
 }
+
 module.exports = getModels;

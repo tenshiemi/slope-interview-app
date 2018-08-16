@@ -6,7 +6,8 @@ const {
 } = require('graphql');
 
 const db = require('../../../db');
-const Collection = require('./Collection');
+
+const Task = require('./Task');
 
 const Project = new GraphQLObjectType({
   name: 'Project',
@@ -29,24 +30,18 @@ const Project = new GraphQLObjectType({
       description: 'The id of the collection this project is in',
       type: new GraphQLNonNull(GraphQLString),
     },
-    collection: {
-      description: 'The collection that this project is in',
-      type: new GraphQLNonNull(Collection),
+    tasks: {
+      description: 'The tasks that are in this project',
+      type: new GraphQLList(Task),
       resolve: project => {
-        return db.get(
+        return db.all(
           `
-          SELECT * FROM Collection WHERE id = $collectionId
+          SELECT * FROM Task WHERE projectId = $projectId
           `,
-          { $collectionId: project.collectionId },
+          { $projectId: project.id },
         );
       },
     },
-    // tasks: {
-    //   description: 'The tasks that are in this project',
-    //   type: new GraphQLList(models.Task),
-    //   resolve: (project) =>
-    //     getStorage().findTasks(project.id),
-    // },
   }),
 });
 

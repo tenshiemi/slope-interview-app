@@ -1,4 +1,5 @@
 const {
+  GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLString,
@@ -23,18 +24,18 @@ const Collection = new GraphQLObjectType({
       description: 'The description of the collection',
       type: GraphQLString,
     },
-    // projects: {
-    //   description: 'The projects that belong to a collection',
-    //   type: new GraphQLList(Project),
-    //   resolve: collection => {
-    //     return db.all(
-    //       `
-    //       SELECT * FROM Project WHERE collectionId = $collectionId
-    //       `,
-    //       { $collectionId: collection.id },
-    //     );
-    //   },
-    // },
+    projects: {
+      description: 'The projects that belong to a collection',
+      type: new GraphQLList(Project),
+      resolve: collection => {
+        return db.all(
+          `
+          SELECT * FROM Project WHERE collectionId = $collectionId
+          `,
+          { $collectionId: collection.id },
+        );
+      },
+    },
   }),
 });
 

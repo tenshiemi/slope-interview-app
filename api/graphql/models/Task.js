@@ -5,9 +5,6 @@ const {
   GraphQLString,
 } = require('graphql');
 
-const db = require('../../../db');
-const Project = require('./Project');
-
 const Task = new GraphQLObjectType({
   name: 'Task',
   description: 'A task that needs to be done in order to complete the project',
@@ -31,18 +28,6 @@ const Task = new GraphQLObjectType({
     projectId: {
       description: 'The id of the project this task is in',
       type: new GraphQLNonNull(GraphQLString),
-    },
-    project: {
-      description: 'The project that this task is in',
-      type: new GraphQLNonNull(Project),
-      resolve: task => {
-        return db.get(
-          `
-          SELECT * FROM Project WHERE id = $projectId
-          `,
-          { $projectId: task.projectId },
-        );
-      },
     },
   }),
 });
