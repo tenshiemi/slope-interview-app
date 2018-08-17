@@ -1,12 +1,13 @@
 const {
+  GraphQLBoolean,
   GraphQLList,
   GraphQLObjectType,
   GraphQLNonNull,
   GraphQLString,
 } = require('graphql');
 
+const createProject = require('./createProject');
 const getModels = require('../models');
-const db = require('../../../db');
 
 const mutations = function() {
   const models = getModels();
@@ -17,7 +18,7 @@ const mutations = function() {
     fields: () => ({
       createProject: {
         description: 'Create a project & its tasks',
-        type: models.Project,
+        type: GraphQLBoolean,
         args: {
           collectionId: {
             description: 'The description of the project to create',
@@ -31,14 +32,13 @@ const mutations = function() {
             description: 'The name of the project to create',
             type: new GraphQLNonNull(GraphQLString),
           },
+          tasks: {
+            description: "Tasks that belong to the project",
+            type: new GraphQLList(models.TaskInput)
+          }
         },
-        resolve(parent, { collectionId, description, name, tasks }) {
-          return db.get(
-            `
-          INSERT INTO Project('collectionId', 'description', 'name') VALUES ($collectionId, $description, $name)
-          `,
-            { $collectionId: collectionId, $description: description, $name: name },
-          );
+        resolve(parent, args) {
+          return createProject(args);
         },
       },
     }),

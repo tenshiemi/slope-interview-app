@@ -6,7 +6,6 @@ const {
 } = require('graphql');
 
 const db = require('../../../db');
-
 const Task = require('./Task');
 
 const Project = new GraphQLObjectType({

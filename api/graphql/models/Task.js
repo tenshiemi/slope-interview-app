@@ -1,7 +1,5 @@
 const { GraphQLNonNull, GraphQLObjectType, GraphQLString } = require('graphql');
 
-const TaskType = require('./TaskType');
-
 const Task = new GraphQLObjectType({
   name: 'Task',
   description: 'A task that needs to be done in order to complete the project',
@@ -28,7 +26,7 @@ const Task = new GraphQLObjectType({
     },
     type: {
       description: 'The type of task this is',
-      type: new GraphQLNonNull(TaskType),
+      type: new GraphQLNonNull(GraphQLString),
     },
   }),
 });

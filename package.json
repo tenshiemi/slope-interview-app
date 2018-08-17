@@ -9,12 +9,13 @@
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-scripts": "1.1.4",
-    "sqlite3": "^4.0.2"
+    "sqlite3": "^4.0.2",
+    "uuid": "^3.3.2"
   },
+  "proxy": "http://localhost:8080",
   "scripts": {
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "proxy": "http://localhost:8080",
     "api": "node ./server/server.js",
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom"

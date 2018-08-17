@@ -5,6 +5,7 @@ const {
   GraphQLString,
 } = require('graphql');
 
+const db = require('../../../db');
 const Project = require('./Project');
 
 const Collection = new GraphQLObjectType({

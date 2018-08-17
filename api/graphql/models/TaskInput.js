@@ -4,8 +4,6 @@ const {
   GraphQLString,
 } = require('graphql');
 
-const TaskType = require('./TaskType');
-
 const TaskInput = new GraphQLInputObjectType({
   name: 'TaskInput',
   description: 'The input to create a task',
@@ -20,7 +18,7 @@ const TaskInput = new GraphQLInputObjectType({
     },
     type: {
       description: 'The type of task this is',
-      type: new GraphQLNonNull(TaskType),
+      type: GraphQLString,
     },
     dueDate: {
       description: 'The time that the task is due',
